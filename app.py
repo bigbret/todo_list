@@ -18,12 +18,16 @@ class Todo(db.Model):
     #boolean for complete
     complete = db.Column(db.Boolean)
 
-@app.route('/')
-def index():
+#@app.route('/')
+#def index():
     #show all the todos and query the db 
-    todo_list = Todo.query.all()
-    print(todo_list)
-    return render_template('base.html', todo_list = todo_list)
+    #todo_list = Todo.query.all()
+    #print(todo_list)
+    #return render_template('base.html', todo_list = todo_list)
+
+@app.route('/')
+def home():
+    return {'message': 'Hello Flask!'}
 
 #post method
 @app.route("/add", methods= ["POST"])

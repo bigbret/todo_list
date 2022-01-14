@@ -1,9 +1,11 @@
 import pytest
-from app import app
+from app import app 
+
 
 @pytest.fixture
 def client():
     return app.test_client()
+
 
 def test_index(client):
     resp = client.get('/')
