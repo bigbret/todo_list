@@ -11,12 +11,12 @@
 </head>
 <body>
     <div class = "ui container" style="margin-top: 10px;" >
-        <div class = 'ui segment' >
-            <h2 class = 'ui red right aligned header'>{{datetime[5:10] + "-" + datetime[0:4] + " | " + datetime[10:16]}}</h2>
-            <h1 class = "ui blue center aligned header">
+        <div class = 'ui raised clearing segment' >
+            <h2 class = 'ui red right floated header'>{{datetime[5:10] + "-" + datetime[0:4] + " | " + datetime[10:16]}}</h2>
+            <h2 class = "ui blue left floated header">
                 <i class = "edit icon"></i>
                     Todo Task Manager
-            </h1>
+            </h2>
         
         </div>
     
@@ -31,10 +31,10 @@
     </form>
 
     {% for todo in todo_list %}
-    <div class ="ui segment">
+    <div class ="ui inverted raised segment">
     
         <p class="ui big header"> {{ todo.id }} | {{ todo.title }} </p>
-        <p class = "ui grey header">{{todo.tag}}</p>
+        <p class = "ui header">{{todo.tag}}</p>
 
         {% if todo.complete == False %}
             <span class = 'ui red top right attached label' >Not Complete</span>
@@ -67,6 +67,8 @@
 
     </div>   
     {% endfor %}
+
+
 </div>
 </body>
 </html>
