@@ -10,34 +10,60 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </head>
 <body>
-    <div class = "ui container" style="margin-top: 50px;" >
-
-    <h1 class = "ui center aligned header">Todo App</h1>
+    <div class = "ui container" style="margin-top: 10px;" >
+        <div class = 'ui segment' >
+            <h2 class = 'ui red right aligned header'>{{datetime[5:10] + "-" + datetime[0:4] + " | " + datetime[10:16]}}</h2>
+            <h1 class = "ui blue center aligned header">
+                <i class = "edit icon"></i>
+                    Todo Task Manager
+            </h1>
+        
+        </div>
     
-    <form action="/add" method="post">
-        <div>
-            <label for="title"> Todo Title</label>
-            <input type="text" name ="title" placeholder="Enter Todo">
-            <br>
+    <form class = "ui form" action="/add" method="post">
+        <div class = "ui fluid action input">
+            <input type="text" name ="title" placeholder="Enter Todo...">
+            <input type = "text" name="tag" placeholder = "Enter Tag...">
             <button class = "ui blue button" type="submit">Add</button>
+        </div>
+        <div>
         </div>
     </form>
 
     {% for todo in todo_list %}
     <div class ="ui segment">
-
     
         <p class="ui big header"> {{ todo.id }} | {{ todo.title }} </p>
+        <p class = "ui grey header">{{todo.tag}}</p>
 
         {% if todo.complete == False %}
-            <span class = 'ui grey label' >Not Complete</span>
+            <span class = 'ui red top right attached label' >Not Complete</span>
+            <span class = 'ui red bottom right attached label'>Created on: {{datetime[5:10]}}-{{datetime[0:4]}} at {{datetime[10:16]}}</span>
+            <br>
         {% else %}
-            <span c;ass = 'ui green label' >Completed</span>
+            <span class = 'ui green top right attached label' >Completed</span>
+            <span class = 'ui green bottom right attached label'>Completed on: {{datetime[5:10]}}-{{datetime[0:4]}} at {{datetime[10:16]}}</span>
+            <br>
         {% endif %}
-
+        {% if todo.priority == 1 %}
+            <a class = "ui grey circular label">***</a>
+            <a class = "ui grey circular label">**</a>
+            <a class = "ui blue circular label">*</a>
+        {% elif todo.priority == 2 %}
+            <a class = "ui grey circular label">***</a>
+            <a class = "ui orange circular label">**</a>
+            <a class = "ui grey circular label">*</a>
+        {% else %}
+            <a class = "ui red circular label">***</a>
+            <a class = "ui grey circular label">**</a>
+            <a class = "ui grey circular label">*</a>
+        {% endif %}
+        <br>
+        <br>
         <a class = "ui blue button" href="/update/{{ todo.id }}">Update</a>
-
+        <a class = "ui circular button" href ="/update_priority/{{todo.id}}">Change Priority</a>
         <a class = "ui red button" href="/delete/{{ todo.id }}">Delete</a>
+        
 
     </div>   
     {% endfor %}
