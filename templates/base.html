@@ -38,11 +38,11 @@
 
         {% if todo.complete == False %}
             <span class = 'ui red top right attached label' >Not Complete</span>
-            <span class = 'ui red bottom right attached label'>Created on: {{datetime[5:10]}}-{{datetime[0:4]}} at {{datetime[10:16]}}</span>
+            <span class = 'ui red bottom right attached label'>Created on: {{todo.time[5:10]}}-{{todo.time[0:4]}} at {{todo.time[10:16]}}</span>
             <br>
         {% else %}
             <span class = 'ui green top right attached label' >Completed</span>
-            <span class = 'ui green bottom right attached label'>Completed on: {{datetime[5:10]}}-{{datetime[0:4]}} at {{datetime[10:16]}}</span>
+            <span class = 'ui green bottom right attached label'>Completed on: {{todo.time[5:10]}}-{{todo.time[0:4]}} at {{todo.time[10:16]}}</span>
             <br>
         {% endif %}
         {% if todo.priority == 1 %}
