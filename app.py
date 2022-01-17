@@ -29,18 +29,22 @@ class Todo(db.Model):
     priority = db.Column(db.Integer)
     #tag for different things
     tag = db.Column(db.String(100))
+
+    datetime_created = db.Column(db.String(100), default=str(datetime.now()))
+    datetime_completed = db.Column(db.String(100), default=str(datetime.now()))
     
 
-    def __init__(self, title, priority, tag):
+    def __init__(self, title, priority, tag, datetime_created, datetime_completed):
         self.title = title
         self.complete = False
         self.priority = priority
         self.tag = tag
+        self.datetime_created = datetime_created
+        self.datetime_completed = datetime_completed
         
 
     def __repr__(self): 
         return '<Title %s>' % self.title
-
 
 @app.route('/')
 def index():
@@ -60,9 +64,11 @@ def add():
     '''
     title = request.form["title"]
     tag = request.form['tag']
+    datetime_created = str(datetime.now()) 
+    datetime_completed = str(datetime.now())
     if not title: 
         return 'Error'
-    new_todo = Todo(title, 1, tag)   
+    new_todo = Todo(title, 1, tag, datetime_created, datetime_completed)   
     db.session.add(new_todo)
     db.session.commit()
     #reloads the page for the user in a way, bringing them back to the home screen
@@ -76,13 +82,13 @@ def update(todo_id):
     so that you can leave them on the screen and know finished vs unfinished
     '''
     todo = Todo.query.get(todo_id)
-
     if not todo: 
         return redirect(url_for("index"))
     if todo.complete: 
         todo.complete = False
     else: 
-        todo.complete = True
+        todo.complete = True 
+        todo.datetime_completed = str(datetime.now())  
     
     db.session.commit()
     #redirects user to this page after updating item     
@@ -101,8 +107,6 @@ def update_priority(todo_id):
     db.session.commit()
     return redirect(url_for("index"))
                   
-
-
 @app.route("/delete/<int:todo_id>")
 def delete(todo_id):
     #adding 
@@ -115,6 +119,6 @@ def delete(todo_id):
     return redirect(url_for("index"))       
 
 if __name__ == '__main__':
-    #db.create_all()
-    #db.session.commit()
+    db.create_all()
+    db.session.commit()
     app.run(debug = True) 
