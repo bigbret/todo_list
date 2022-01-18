@@ -1,8 +1,8 @@
-name: Python application
+name: Todo List Python application
 
 on:
   [push]
-
+  
 jobs:
   build:
 
