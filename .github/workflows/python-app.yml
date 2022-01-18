@@ -10,7 +10,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run:  git fetch --all --unshallow 
+    - run: |
+        git fetch --all --unshallow 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
